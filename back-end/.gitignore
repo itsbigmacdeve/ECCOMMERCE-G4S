@@ -1,0 +1,8 @@
+# Ignorar dependencias
+node_modules/
+
+# Ignorar variables sensibles
+.env
+
+# Ignorar lock file (opcional, según tu flujo de trabajo)
+# package-lock.json

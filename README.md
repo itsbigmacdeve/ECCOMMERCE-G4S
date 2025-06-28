@@ -28,10 +28,6 @@ npm install express mysql2 cors dotenv bcrypt jsonwebtoken
 npm install --save-dev nodemon
 ```
 
-- Se crearon los métodos para:
-  - Obtener todos los productos
-  - Obtener un producto por ID específico
-
 - Estructura principal del API:
   - `routes/`: Expone los endpoints para que puedan ser consumidos
   - `controllers/`: Maneja la lógica de negocio según el endpoint

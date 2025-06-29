@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { getCart } from "../services/cartService";
 import { checkout } from "../services/checkoutService";
+import { CartContext } from "../context/CartContext";
 
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const { fetchCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetchCart();
+    fetchCartC();
   }, []);
 
-  const fetchCart = async () => {
+  const fetchCartC = async () => {
     try {
       const res = await getCart();
       setCart(res.data);
@@ -33,6 +35,7 @@ const Cart = () => {
       alert(`Orden #${res.data.orderId} creada con éxito`);
       setCart([]);
       setTotal(0);
+      await fetchCart();// Actualiza el carrito después del checkout
     } catch (err) {
       console.error("Error al realizar checkout:", err);
       const mensaje = err.response?.data?.error || "No se pudo completar la orden. Intenta más tarde.";

@@ -48,7 +48,7 @@ const handleAddToCart = async (productId) => {
 
 return (
     <div className="container mt-4">
-        <h2 className="mb-4 text-center">Productos Destacados</h2>
+        <h2 className="mb-4 text-center">Productos</h2>
         <div className="row">
             {products.map((product) => (
                 <div className="col-md-4 mb-4" key={product.id}>

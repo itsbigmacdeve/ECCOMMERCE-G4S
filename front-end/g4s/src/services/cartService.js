@@ -25,3 +25,29 @@ export const getCart = async () => {
     },
   });
 };
+
+//Funcion para eliminar un producto del carrito
+export const deleteItemFromCart = async (productId) => {
+  const token = localStorage.getItem('token');
+  return axios.post(
+    `${API}/cart/deleteById`,
+    { productId },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+// Función para eliminar el carrito del usuario autenticado
+export const deleteCart = async () => {
+  const token = localStorage.getItem('token');
+  return axios.delete(`${API}/cart/deleteCart`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+

@@ -13,7 +13,7 @@ Link al proyecto: https://eccommerce-g4-s.vercel.app/login
 ### 🔹 1. Inicialización del repositorio
 
 - Repo público en GitHub llamado `ECCOMMERCE-G4S`.
-- Estructura de carpetas `back-end` y `front-end/g4s` creada manualmente.
+- Estructura de carpetas `back-end` y `front-end` creada manualmente.
 
 ---
 
@@ -63,7 +63,7 @@ JWT_SECRET=your-jwt-secret
 
 #### 🧾 Productos:
 
-- `GET /api/products` → Listar todos los productos (**protegido con JWT**)
+- `GET /api/products` → Listar todos los productos 
 - `GET /api/products/:id` → Obtener un producto por ID
 
 #### 👤 Autenticación:
@@ -74,8 +74,8 @@ JWT_SECRET=your-jwt-secret
 
 #### 🛒 Carrito (en memoria):
 
-- `POST /api/cart/add` → Agrega producto al carrito por `userId`
-- `GET /api/cart` → Devuelve el carrito del usuario autenticado
+- `POST /api/cart/add` → Agrega producto al carrito por `userId` 
+- `GET /api/cart` → Devuelve el carrito del usuario autenticado 
 
 #### 💳 Checkout:
 
@@ -95,7 +95,7 @@ JWT_SECRET=your-jwt-secret
 - Inicialización del proyecto con:
 
 ```bash
-cd front-end/g4s
+cd front-end
 npx create-react-app@latest g4s
 npm install axios react-router react-router-dom bootstrap react-bootstrap jwt-decode
 npm install boostrap @popperjs/core

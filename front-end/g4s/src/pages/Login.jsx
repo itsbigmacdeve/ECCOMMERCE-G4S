@@ -17,7 +17,7 @@ const Login = () => {
     try {
       const res = await loginUser(username, password);
       login(res.data.token, res.data.username); 
-      await fetchCart(); // Actualiza el carrito después de iniciar sesión
+      await fetchCart(); 
       setMensaje({ tipo: "success", texto: "Inicio de sesión exitoso" });
       setTimeout(() => navigate("/Home"), 1500);
     } catch (err) {

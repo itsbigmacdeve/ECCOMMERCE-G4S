@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     localStorage.removeItem("username");
     setUsername("");
-    window.location.href = "/login"; // or use a routing library to navigate
+    window.location.href = "/login"; 
   };
 
   return (

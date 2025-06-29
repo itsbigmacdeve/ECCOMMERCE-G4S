@@ -14,7 +14,7 @@ export const registerUserController = async (req, res) => {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
-    await registerUserModel(normalizedUsername, passwordHash); // ✅ guardar normalizado
+    await registerUserModel(normalizedUsername, passwordHash); 
 
     res.status(201).json({ message: 'Usuario registrado correctamente' });
   } catch (error) {

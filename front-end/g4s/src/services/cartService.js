@@ -16,7 +16,7 @@ export const addToCart = async (productId, quantity) => {
   );
 };
 
-// (opcional) Para obtener el carrito
+// Función para obtener el carrito del usuario autenticado
 export const getCart = async () => {
   const token = localStorage.getItem('token');
   return axios.get(`${API}/cart`, {

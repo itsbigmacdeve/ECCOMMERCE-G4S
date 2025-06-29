@@ -53,4 +53,4 @@ export const getCart = (req, res) => {
 };
 
 
-export { carts };// Exportamos el carrito para poder usarlo en otros controladores, como checkoutController.js
+export { carts };

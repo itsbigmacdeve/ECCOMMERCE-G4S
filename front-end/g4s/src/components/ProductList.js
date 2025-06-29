@@ -36,7 +36,7 @@ const handleAddToCart = async (productId) => {
 
     try {
         await addToCart(productId, quantity);
-        await fetchCart(); //manda llamar actualizar el carrito
+        await fetchCart(); 
         alert(`Agregado ${quantity} al carrito`);
         
 

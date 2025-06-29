@@ -12,8 +12,8 @@ export const verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // ejemplo: { userId: 3, username: 'eli' }
-    next(); // continúa con la siguiente función
+    req.user = decoded; 
+    next(); 
   } catch (error) {
     return res.status(401).json({ error: 'Token inválido o expirado' });
   }

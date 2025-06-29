@@ -35,7 +35,7 @@ const Cart = () => {
       alert(`Orden #${res.data.orderId} creada con éxito`);
       setCart([]);
       setTotal(0);
-      await fetchCart();// Actualiza el carrito después del checkout
+      await fetchCart();
     } catch (err) {
       console.error("Error al realizar checkout:", err);
       const mensaje = err.response?.data?.error || "No se pudo completar la orden. Intenta más tarde.";

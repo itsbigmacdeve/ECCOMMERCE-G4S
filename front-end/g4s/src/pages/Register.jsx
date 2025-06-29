@@ -15,7 +15,8 @@ const Register = () => {
       setMensaje({ tipo: 'success', texto: '¡Usuario registrado!' });
       setTimeout(() => navigate('/login'), 1500);
     } catch (err) {
-      setMensaje({ tipo: 'danger', texto: 'Error al registrar' });
+      const mensaje = err.response?.data?.error
+      setMensaje({ tipo: 'danger', texto: mensaje ||'Error al registrar' });
     }
   };
 

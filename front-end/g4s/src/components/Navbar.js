@@ -1,16 +1,18 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 
 
 const Navbar = () => {
   const { isLoggedIn,username, logout } = useContext(AuthContext);
+  const { cartItemsCount } = useContext(CartContext);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <Link className="navbar-brand" to="/">
-          G4S Store
+        <Link className="navbar-brand">
+          G4S STORE
         </Link>
         <button
           className="navbar-toggler"
@@ -51,15 +53,18 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <button
-                    className="nav-link btn btn-link text-white text-decoration-none"
+                    className="nav-link"
                     onClick={logout}
                   >
                     Cerrar Sesión
                   </button>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item position-relative">
                   <Link className="nav-link" to="/cart">
                     <i className="fas fa-shopping-cart"></i>
+                    <span className="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
+                      {cartItemsCount}
+                    </span>
                   </Link>
                 </li>
               </>

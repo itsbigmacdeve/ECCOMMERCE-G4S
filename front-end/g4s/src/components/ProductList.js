@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { getProducts } from "../services/api";
 import { addToCart } from "../services/cartService";
+import { CartContext } from "../context/CartContext";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  const [quantities, setQuantities] = useState({}); // 👈 cantidades por producto
+  const [quantities, setQuantities] = useState({}); 
+  const { fetchCart } = useContext(CartContext);
+
 
   useEffect(() => {
     getProducts()
@@ -17,16 +20,31 @@ const ProductList = () => {
     setQuantities({ ...quantities, [productId]: qty });
   };
 
-  const handleAddToCart = async (productId) => {
+const handleAddToCart = async (productId) => {
     const quantity = quantities[productId] || 1;
-    try {
-      await addToCart(productId, quantity);
-      alert(`Agregado ${quantity} al carrito`);
-    } catch (error) {
-      console.error("Error al agregar al carrito:", error);
-      alert("Debes iniciar sesión para agregar al carrito");
+    const product = products.find((p) => p.id === productId);
+
+    if (!product) {
+        alert("Producto no encontrado");
+        return;
     }
-  };
+
+    if (quantity > product.stock) {
+        alert(`Solo puedes agregar como máximo ${product.stock} unidades al carrito`);
+        return;
+    }
+
+    try {
+        await addToCart(productId, quantity);
+        await fetchCart(); //manda llamar actualizar el carrito
+        alert(`Agregado ${quantity} al carrito`);
+        
+
+    } catch (error) {
+        console.error("Error al agregar al carrito:", error);
+        alert("Debes iniciar sesión para agregar al carrito");
+    }
+};
 
 return (
     <div className="container mt-4">
@@ -53,17 +71,32 @@ return (
                                 </span>
                             </p>
 
-                            {/* Input de cantidad */}
                             <div className="mb-2">
                                 <label htmlFor={`qty-${product.id}`} className="form-label">Cantidad:</label>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    className="form-control"
-                                    id={`qty-${product.id}`}
-                                    value={quantities[product.id] || 1}
-                                    onChange={(e) => handleQuantityChange(product.id, e.target.value)}
-                                />
+                                <div className="input-group">
+                                    <button
+                                        className="btn btn-outline-secondary"
+                                        type="button"
+                                        onClick={() => handleQuantityChange(product.id, (quantities[product.id] || 1) - 1)}
+                                    >
+                                        <i className="fa fa-minus"></i>
+                                    </button>
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        className="form-control text-center"
+                                        id={`qty-${product.id}`}
+                                        value={quantities[product.id] || 1}
+                                        onChange={(e) => handleQuantityChange(product.id, e.target.value)}
+                                    />
+                                    <button
+                                        className="btn btn-outline-secondary"
+                                        type="button"
+                                        onClick={() => handleQuantityChange(product.id, (quantities[product.id] || 1) + 1)}
+                                    >
+                                        <i className="fa fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
 
                             <button

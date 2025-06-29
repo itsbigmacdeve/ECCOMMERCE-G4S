@@ -31,13 +31,15 @@ const Cart = () => {
     try {
       const res = await checkout();
       alert(`Orden #${res.data.orderId} creada con éxito`);
-        setCart([]); // Vaciar el carrito después del checkout
-        setTotal(0); // Reiniciar total
+      setCart([]);
+      setTotal(0);
     } catch (err) {
       console.error("Error al realizar checkout:", err);
-      alert("No se pudo completar la orden. Intenta más tarde.");
+      const mensaje = err.response?.data?.error || "No se pudo completar la orden. Intenta más tarde.";
+      alert(mensaje);
     }
   };
+  
 
   return (
     <div className="container mt-5">

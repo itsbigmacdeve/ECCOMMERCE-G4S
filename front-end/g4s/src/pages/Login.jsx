@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { loginUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -9,12 +10,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState(null);
   const navigate = useNavigate();
+  const { fetchCart } = useContext(CartContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await loginUser(username, password);
       login(res.data.token, res.data.username); 
+      await fetchCart(); // Actualiza el carrito después de iniciar sesión
       setMensaje({ tipo: "success", texto: "Inicio de sesión exitoso" });
       setTimeout(() => navigate("/Home"), 1500);
     } catch (err) {

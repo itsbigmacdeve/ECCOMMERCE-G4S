@@ -6,11 +6,12 @@ import { getProductByIdController } from "../controllers/productController.js";
 const router = Router();
 
 // Ruta para obtener todos los productos
-router.get("/getAllProducts",verifyToken, getAllProductsController);
+router.get("/", getAllProductsController);
 
 //Ruta para obtener un producto en específico por ID
-router.post("/getProductById/:id", getProductByIdController);
+router.get('/:id', getProductByIdController);
 
 
 // Exportar el router
 export default router;
+

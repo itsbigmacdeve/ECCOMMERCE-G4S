@@ -1,20 +1,28 @@
 import {registerUserModel , getUserByUsernameModel} from '../models/userModels.js';
-
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 
 export const registerUserController = async (req, res) => {
   const { username, password } = req.body;
+  const normalizedUsername = username.trim().toLowerCase();
 
   try {
+    const user = await getUserByUsernameModel(normalizedUsername);
+    if (user) {
+      return res.status(400).json({ error: 'El usuario ya existe' });
+    }
+
     const passwordHash = await bcrypt.hash(password, 10);
-    await registerUserModel(username, passwordHash);
+    await registerUserModel(normalizedUsername, passwordHash); // ✅ guardar normalizado
+
     res.status(201).json({ message: 'Usuario registrado correctamente' });
   } catch (error) {
     console.error('Error al registrar usuario:', error);
     res.status(500).json({ error: 'Error al registrar usuario' });
   }
 };
+
 
 export const loginUserController = async (req, res) => {
   const { username, password } = req.body;

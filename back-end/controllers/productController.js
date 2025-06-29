@@ -1,4 +1,4 @@
-import { getAllProductsModel } from "../models/productModels.js";
+import { getAllProductsModel, getProductByIdModel } from "../models/productModels.js";
 
 export const getAllProductsController = async (req, res) => {
   try {
@@ -11,9 +11,9 @@ export const getAllProductsController = async (req, res) => {
 };
 
 export const getProductByIdController = async (req, res) => {
-  const { productId } = req.body;
+  const { id } = req.params; 
   try {
-    const product = await getProductByIdModel(productId);
+    const product = await getProductByIdModel(id);
     if (product) {
       res.json(product);
     } else {
@@ -23,4 +23,4 @@ export const getProductByIdController = async (req, res) => {
     console.error('Error al obtener el producto por ID:', error);
     res.status(500).json({ error: 'Error al obtener el producto' });
   }
-}
+};
